@@ -6,7 +6,7 @@
 /*   By: yabad <yabad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 16:34:39 by yabad             #+#    #+#             */
-/*   Updated: 2023/09/14 19:13:35 by yabad            ###   ########.fr       */
+/*   Updated: 2023/09/15 14:24:13 by yabad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,19 +86,19 @@ bool	Fixed::operator!=(const Fixed& other) const {
 }
 
 Fixed	Fixed::operator+(const Fixed& other) const {
-	return (Fixed(this->FixedPointValue + other.getRawBits()));
+	return (Fixed(this->toFloat() + other.toFloat()));
 }
 
 Fixed	Fixed::operator-(const Fixed& other) const {
-	return (Fixed(this->FixedPointValue - other.getRawBits()));
+	return (Fixed(this->toFloat() - other.toFloat()));
 }
 
 Fixed	Fixed::operator*(const Fixed& other) const {
-	return (Fixed(this->FixedPointValue * other.getRawBits()));
+	return (Fixed(this->toFloat() * other.toFloat()));
 }
 
 Fixed	Fixed::operator/(const Fixed& other) const {
-	return (Fixed(this->FixedPointValue / other.getRawBits()));
+	return (Fixed(this->toFloat() / other.toFloat()));
 }
 
 Fixed&	Fixed::operator++() {
@@ -112,13 +112,13 @@ Fixed&	Fixed::operator--() {
 }
 
 Fixed	Fixed::operator++(int) {
-	Fixed	tmp(this->FixedPointValue);
+	Fixed	tmp(*this);
 	this->FixedPointValue++;
 	return (tmp);
 }
 
 Fixed	Fixed::operator--(int) {
-	Fixed	tmp(this->FixedPointValue);
+	Fixed	tmp(*this);
 	this->FixedPointValue--;
 	return (tmp);
 }
@@ -127,12 +127,12 @@ Fixed&	Fixed::min(Fixed& a, Fixed& b) {
 	return ((a < b) ? a : b);
 }
 
-const Fixed&	Fixed::min(const Fixed& a, const Fixed& b) {
-	return ((a < b) ? a : b);
-}
-
 Fixed&	Fixed::max(Fixed& a, Fixed& b) {
 	return ((a > b) ? a : b);
+}
+
+const Fixed&	Fixed::min(const Fixed& a, const Fixed& b) {
+	return ((a < b) ? a : b);
 }
 
 const Fixed&	Fixed::max(const Fixed& a, const Fixed& b) {
